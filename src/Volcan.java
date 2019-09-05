@@ -63,4 +63,11 @@ public class Volcan {
 	}
 	
 	
+	/**
+	 * 
+	 */
+	public Volcan() 
+	{
+		
+	}
 }
