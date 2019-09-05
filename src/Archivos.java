@@ -53,7 +53,8 @@ public class Archivos {
 				s+= datos.get(i) + "\n";
 				i++;
 			}
-			s+= nombre + " " + area + " " + String.valueOf(habitantes);
+			s+= nombre + "-" + area + "-" + String.valueOf(habitantes);
+
 			FileWriter escritor = new FileWriter(archivo);
 			escritor.write(s);
 			escritor.close();
@@ -84,9 +85,9 @@ public class Archivos {
 			while (i<datos.size()) 
 			{
 				String linea = datos.get(i);
-				if (linea.contains(nombre)) 
+				if (linea.split("-")[0].equals(nombre)) 
 				{
-					datos.set(i, nombre + " " + area + " " + String.valueOf(habitantes));
+					datos.set(i, nombre + "-" + area + "-" + String.valueOf(habitantes));
 					encontrado = true;
 					break;
 				}
@@ -105,6 +106,7 @@ public class Archivos {
 				s+= datos.get(i) + "\n";
 				i++;
 			}
+			
 			FileWriter escritor = new FileWriter(archivo);
 			escritor.write(s);
 			escritor.close();
@@ -129,37 +131,23 @@ public class Archivos {
 			
 			boolean encontrado = false;
 			int i =0;
-			
-			i=0;
-			String s = "";
-			while (i<datos.size())
-			{
-				s+= datos.get(i) + "\n";
-				i++;
-			}
-			
-			JOptionPane.showMessageDialog(null, s, "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
 			while (i<datos.size()) 
 			{
 				String linea = datos.get(i);
-				if (linea.contains(nombre)) 
+				if (linea.split("-")[0].equals(nombre)) 
 				{
-					int ii = nombre.length()+1, habitantes;
-					String area = "";
-					while (linea.toCharArray()[ii] != ' ') 
-						ii++;
-					
-					area = linea.substring(nombre.length()+1, ii);
-					habitantes = Integer.valueOf(linea.substring(nombre.length() + 1 + ii));
+					String area = linea.split("-")[1];
+					int habitantes = Integer.valueOf(linea.split("-")[2]);
 					v = new Volcan(nombre, area, habitantes);
 					encontrado = true;
 					break;
 				}
 				i++;
 			}
+			
 			if(!encontrado) 
 			{
-				JOptionPane.showMessageDialog(null, "El volcán que busca no existe", "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "El volcán que busca no existe"  + nombre, "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
 				return v;
 			}
 		} catch (IOException e) {
