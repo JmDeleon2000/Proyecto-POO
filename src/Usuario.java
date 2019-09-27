@@ -105,7 +105,10 @@ public class Usuario {
 	//Terminar en otra ocasion
 	public void agregarAlerta() 
 	{
-		
+		consultar();
+		Volcan alerta = new Volcan();
+		alerta.setNombre(textField.getText());
+		alerta.setArea(textField_1.getText());
 	}
 	
 	private class ManejadorConsulta implements ActionListener
