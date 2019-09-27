@@ -109,6 +109,12 @@ public class Usuario {
 		Volcan alerta = new Volcan();
 		alerta.setNombre(textField.getText());
 		alerta.setArea(textField_1.getText());
+		alerta.setHabitantes((int)spinner.getValue());
+		try {
+			Archivos.nuevaAlerta(alerta);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	private class ManejadorConsulta implements ActionListener
