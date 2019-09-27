@@ -1,4 +1,15 @@
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JButton;
 
 public class Administrador {
 
@@ -81,7 +92,11 @@ public class Administrador {
 	 * @param habitantes
 	 */
 	public void agregarVolcan(String nombre, String area, int habitantes) {
-		datos.agregar(nombre, area, habitantes);
+		try {
+			datos.agregar(nombre, area, habitantes);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	
@@ -92,7 +107,11 @@ public class Administrador {
 	 * @param habitantes
 	 */
 	public void modificarVolcan(String nombre, String area, int habitantes) {
-		datos.modificar(nombre, area, habitantes);
+		try {
+			datos.modificar(nombre, area, habitantes);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	

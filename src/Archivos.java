@@ -54,7 +54,7 @@ public class Archivos {
 			{
 				String linea = lector.nextLine();
 				if (linea.split("-")[0] == nombre) 
-					throw new Exception("El volc√°n ya est√° registrado.");
+					throw new Exception("El volc·n ya est· registrado.");
 				datos.add(linea);
 				
 			}	
@@ -108,7 +108,7 @@ public class Archivos {
 			}
 			if(!encontrado) 
 			{
-				throw new Exception("El volc√°n que busca no existe.");
+				throw new Exception("El volc·n que busca no existe.");
 			}
 			
 			i=0;
@@ -159,7 +159,7 @@ public class Archivos {
 			
 			if(!encontrado) 
 			{
-				throw new Exception("El volc√°n que busca no existe.");
+				throw new Exception("El volc·n que busca no existe.");
 			}
 		} catch (IOException e) {
 			throw new Exception("No se pudo escribir en el archivo");
@@ -177,7 +177,7 @@ public class Archivos {
 			{
 				String linea = lector.nextLine();
 				if (linea.split("-")[0] == volcan.getNombre()) 
-					throw new Exception("El volc√°n ya tiene una alerta registrada.");
+					throw new Exception("El volc·n ya tiene una alerta registrada.");
 				datos.add(linea);
 				
 			}	
@@ -197,6 +197,4 @@ public class Archivos {
 			throw new Exception("No se pudo escribir en el archivo.");
 		}
 	}
-	
-	
 }
