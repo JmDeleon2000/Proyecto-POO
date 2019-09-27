@@ -22,10 +22,17 @@ public class Archivos {
 	 */
 	public Archivos() 
 	{
-		File archivo = new File("volcanes.txt");
-		if (!archivo.exists())
+		File volcanes = new File("volcanes.dat");
+		if (!volcanes.exists())
 			try {
-				archivo.createNewFile();
+				volcanes.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		File alertas = new File("alertas.dat");
+		if (!alertas.exists())
+			try {
+				alertas.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -36,15 +43,20 @@ public class Archivos {
 	 * @param nombre
 	 * @param area
 	 * @param habitantes
+	 * @throws Exception 
 	 */
-	public void agregar(String nombre, String area, int habitantes) {
+	public void agregar(String nombre, String area, int habitantes) throws Exception {
 		try {
-			File archivo = new File("volcanes.txt");
+			File archivo = new File("volcanes.dat");
 			Scanner lector = new Scanner(archivo);
 			ArrayList<String> datos = new ArrayList<String>();
 			while(lector.hasNextLine()) 
 			{
-				datos.add(lector.nextLine());
+				String linea = lector.nextLine();
+				if (linea.split("-")[0] == nombre) 
+					throw new Exception("El volcán ya está registrado.");
+				datos.add(linea);
+				
 			}	
 			int i =0;
 			String s = "";
@@ -59,7 +71,7 @@ public class Archivos {
 			escritor.write(s);
 			escritor.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "No se pudo escribir en el archivo.", "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
+			throw new Exception("No se pudo escribir en el archivo.");
 		}
 	}
 	
@@ -69,10 +81,11 @@ public class Archivos {
 	 * @param nombre
 	 * @param area
 	 * @param habitantes
+	 * @throws Exception 
 	 */
-	public void modificar(String nombre, String area, int habitantes) {
+	public void modificar(String nombre, String area, int habitantes) throws Exception {
 		try {
-			File archivo = new File("volcanes.txt");
+			File archivo = new File("volcanes.dat");
 			Scanner lector = new Scanner(archivo);
 			ArrayList<String> datos = new ArrayList<String>();
 			while(lector.hasNextLine()) 
@@ -95,8 +108,7 @@ public class Archivos {
 			}
 			if(!encontrado) 
 			{
-				JOptionPane.showMessageDialog(null, "El volcán que busca no existe", "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
-				return;
+				throw new Exception("El volcán que busca no existe.");
 			}
 			
 			i=0;
@@ -111,15 +123,15 @@ public class Archivos {
 			escritor.write(s);
 			escritor.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "No se pudo escribir en el archivo.", "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
+			throw new Exception("No se pudo escribir en el archivo");
 		}
 	}
 	
-	public static Volcan leer(String nombre) 
+	public static Volcan leer(String nombre) throws Exception 
 	{
 		Volcan v = new Volcan();
 		try {
-			File archivo = new File("volcanes.txt");
+			File archivo = new File("volcanes.dat");
 			Scanner lector = new Scanner(archivo);
 			ArrayList<String> datos = new ArrayList<String>();
 			while(lector.hasNextLine()) 
@@ -147,12 +159,42 @@ public class Archivos {
 			
 			if(!encontrado) 
 			{
-				JOptionPane.showMessageDialog(null, "El volcán que busca no existe"  + nombre, "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
-				return v;
+				throw new Exception("El volcán que busca no existe.");
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "No se pudo escribir en el archivo.", "InfoBox: " + "Error", JOptionPane.INFORMATION_MESSAGE);
+			throw new Exception("No se pudo escribir en el archivo");
 		}
 		return v;
+	}
+	
+	public static void nuevaAlerta(Volcan volcan) throws Exception 
+	{
+		try {
+			File archivo = new File("alertas.dat");
+			Scanner lector = new Scanner(archivo);
+			ArrayList<String> datos = new ArrayList<String>();
+			while(lector.hasNextLine()) 
+			{
+				String linea = lector.nextLine();
+				if (linea.split("-")[0] == volcan.getNombre()) 
+					throw new Exception("El volcán ya tiene una alerta registrada.");
+				datos.add(linea);
+				
+			}	
+			int i =0;
+			String s = "";
+			while (i<datos.size())
+			{
+				s+= datos.get(i) + "\n";
+				i++;
+			}
+			s+= volcan.getNombre() + "-" + volcan.getArea() + "-" + String.valueOf(volcan.getHabitantes());
+
+			FileWriter escritor = new FileWriter(archivo);
+			escritor.write(s);
+			escritor.close();
+		} catch (IOException e) {
+			throw new Exception("No se pudo escribir en el archivo.");
+		}
 	}
 }
