@@ -198,14 +198,5 @@ public class Archivos {
 		}
 	}
 	
-	public static void nuevaAlerta(Volcan volcan)
-	{
-		try {
-			File archivo = new File("alertas.dat");
-			Scanner lector = new Scanner(archivo);
-			ArrayList<String> datos = new ArrayList<String>();
-		} catch (IOException e) {
-			throw new Exception("No se pudo escribir en el archivo.");
-		}
-	}
+	
 }
