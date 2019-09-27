@@ -90,12 +90,15 @@ public class Usuario {
 		
 	}
 	
-	public void consultar() 
-	{
+	public void consultar() {
+		if (textField.getText().trim().toLowerCase() !=""){
+			
 		Volcan consulta = Archivos.leer(textField.getText().trim().toLowerCase());
 		textField_1.setText(consulta.getArea());
 		spinner.setValue(consulta.getHabitantes());
-		
+		}else{
+			JOptionPane.showMessageDialog(null, "Ingrese el nombre de un volcan en el sistema","Error", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	// Terminar en otra ocasion
 	public void graficarHabitantes(double[] puntos) 
@@ -116,7 +119,11 @@ public class Usuario {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	
+	private class ManejadorAlerta implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			agregarAlerta();
+		}
+	}
 	private class ManejadorConsulta implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
