@@ -8,9 +8,9 @@ import java.awt.Dimension;
 import javax.swing.*;
 import java.io.File;
  
-public class Archivos extends JFrame {
+public class Grafica extends JFrame {
  
-    public Archivos(ArrayList<String> areas, ArrayList<Integer> habitantes){
+    public Grafica(ArrayList<String> areas, ArrayList<Integer> habitantes){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         DefaultCategoryDataset datasetArchivo = new DefaultCategoryDataset();
         int i = 0;
