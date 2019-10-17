@@ -125,6 +125,16 @@ public class Usuario {
 			agregarAlerta();
 		}
 	}
+	public void graficarAreas1() 
+	{
+		volcanes=new Archivos();
+		try {
+			habitantes=new Grafica(volcanes.Area(),volcanes.Habitantes());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private class ManejadorConsulta implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
