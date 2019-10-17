@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,7 +37,77 @@ public class Archivos {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		File usuarios = new File("usuarios.dat");
+		if (!usuarios.exists())
+			try {
+				usuarios.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
+	
+	/**
+	 * 
+	 * @param us
+	 * @param pw
+	 * @throws Exception
+	 */
+	public void nuevoAdmin(String us, String pw) throws Exception 
+	{
+		CharSequence prob = "-";
+		if (pw.contains(prob) || us.contains(prob))
+			throw new Exception("El nombre de usuario o la contraseña usan caracteres inválidos");
+		File archivo = new File("usuarios.dat");
+		Scanner lector = new Scanner(archivo);
+		ArrayList<String> datos = new ArrayList<String>();
+		while(lector.hasNextLine()) 
+		{
+			String linea = lector.nextLine();
+			if (linea.split("-")[0].equals(us)) 
+				throw new Exception("El nombre de usuario ya está en uso.");
+			datos.add(linea);
+		}	
+		lector.close();
+		int i =0;
+		String s = "";
+		while (i<datos.size())
+		{
+			s+= datos.get(i) + "\n";
+			i++;
+		}
+		s+= us + "-" + pw;
+		FileWriter escritor = new FileWriter(archivo);
+		escritor.write(s);
+		escritor.close();
+	}
+	
+	/**
+	 * 
+	 * @param us
+	 * @param pw
+	 * @return
+	 * @throws Exception 
+	 */
+	public Boolean validarUsuario(String us, String pw) throws Exception 
+	{
+		
+		File archivo = new File("usuarios.dat");
+		Scanner lector = new Scanner(archivo);
+		String linea = "";
+		boolean encontrado = false;
+		while(lector.hasNextLine() && !encontrado) 
+		{
+			linea = lector.nextLine();
+			if (linea.split("-")[0].equals(us))
+				encontrado = true;
+		}	
+		lector.close();
+		if (!encontrado) throw new Exception("Nombre de usuario incorrecto");
+		if (linea.split("-")[1].equals(pw))
+			return true;
+		return false;
+	}
+	
 	
 	/**
 	 * 
@@ -46,6 +117,9 @@ public class Archivos {
 	 * @throws Exception 
 	 */
 	public void agregar(String nombre, String area, int habitantes) throws Exception {
+		CharSequence prob = "-";
+		if (nombre.contains(prob) || area.contains(prob))
+			throw new Exception("No se permite el uso de \"-\" dentro los nombres.");
 		try {
 			File archivo = new File("volcanes.dat");
 			Scanner lector = new Scanner(archivo);
@@ -53,11 +127,12 @@ public class Archivos {
 			while(lector.hasNextLine()) 
 			{
 				String linea = lector.nextLine();
-				if (linea.split("-")[0] == nombre) 
-					throw new Exception("El volcÃ¡n ya estÃ¡ registrado.");
+				if (linea.split("-")[0].equals(nombre))
+					throw new Exception("El volcán ya está registrado.");
 				datos.add(linea);
 				
 			}	
+			lector.close();
 			int i =0;
 			String s = "";
 			while (i<datos.size())
@@ -84,6 +159,9 @@ public class Archivos {
 	 * @throws Exception 
 	 */
 	public void modificar(String nombre, String area, int habitantes) throws Exception {
+		CharSequence prob = "-";
+		if (nombre.contains(prob) || area.contains(prob))
+			throw new Exception("No se permite el uso de \"-\" dentro los nombres.");
 		try {
 			File archivo = new File("volcanes.dat");
 			Scanner lector = new Scanner(archivo);
@@ -92,7 +170,7 @@ public class Archivos {
 			{
 				datos.add(lector.nextLine());
 			}
-			
+			lector.close();
 			boolean encontrado = false;
 			int i =0;
 			while (i<datos.size()) 
@@ -108,7 +186,7 @@ public class Archivos {
 			}
 			if(!encontrado) 
 			{
-				throw new Exception("El volcÃ¡n que busca no existe.");
+				throw new Exception("El volcán que busca no existe.");
 			}
 			
 			i=0;
@@ -139,7 +217,7 @@ public class Archivos {
 				datos.add(lector.nextLine());
 			}
 			
-			
+			lector.close();
 			
 			boolean encontrado = false;
 			int i =0;
@@ -159,7 +237,7 @@ public class Archivos {
 			
 			if(!encontrado) 
 			{
-				throw new Exception("El volcÃ¡n que busca no existe.");
+				throw new Exception("El volcán que busca no existe.");
 			}
 		} catch (IOException e) {
 			throw new Exception("No se pudo escribir en el archivo");
@@ -169,6 +247,9 @@ public class Archivos {
 	
 	public static void nuevaAlerta(Volcan volcan) throws Exception 
 	{
+		CharSequence prob = "-";
+		if (volcan.getNombre().contains(prob) || volcan.getArea().contains(prob))
+			throw new Exception("No se permite el uso de \"-\" dentro los nombres.");
 		try {
 			File archivo = new File("alertas.dat");
 			Scanner lector = new Scanner(archivo);
@@ -176,11 +257,12 @@ public class Archivos {
 			while(lector.hasNextLine()) 
 			{
 				String linea = lector.nextLine();
-				if (linea.split("-")[0] == volcan.getNombre()) 
-					throw new Exception("El volcÃ¡n ya tiene una alerta registrada.");
+				if (linea.split("-")[0].equals(volcan.getNombre())) 
+					throw new Exception("El volcán ya tiene una alerta registrada.");
 				datos.add(linea);
 				
 			}	
+			lector.close();
 			int i =0;
 			String s = "";
 			while (i<datos.size())
@@ -197,69 +279,4 @@ public class Archivos {
 			throw new Exception("No se pudo escribir en el archivo.");
 		}
 	}
-	
-	public static ArrayList<Integer> Habitantes() throws Exception 
-	{
-		ArratList<Integer> habitantes= new ArrayList<Integer>();
-		try {
-			File archivo = new File("volcanes.dat");
-			Scanner lector = new Scanner(archivo);
-			ArrayList<String> datos = new ArrayList<String>();
-     		
-			while(lector.hasNextLine()) 
-			{
-				datos.add(lector.nextLine());
-			}
-			
-			
-			
-			boolean encontrado = false;
-			int i =0;
-			while (i<datos.size()) 
-			{
-				String linea = datos.get(i);
-				habitantes.add(Integer.ParseInt(linea.split("-")[2]));
-				
-				i++;
-			}
-			
-			
-		} catch (IOException e) {
-			throw new Exception("No se pudo escribir en el archivo");
-		}
-		return habitantes;
-	}
-	public static ArrayList<String> Area() throws Exception 
-	{
-		ArratList<String> area= new ArrayList<String>();
-		try {
-			File archivo = new File("volcanes.dat");
-			Scanner lector = new Scanner(archivo);
-			ArrayList<String> datos = new ArrayList<String>();
-     		
-			while(lector.hasNextLine()) 
-			{
-				datos.add(lector.nextLine());
-			}
-			
-			
-			
-			boolean encontrado = false;
-			int i =0;
-			while (i<datos.size()) 
-			{
-				String linea = datos.get(i);
-				area.add(linea.split("-")[1]) ;
-				
-				i++;
-			}
-			
-			
-		} catch (IOException e) {
-			throw new Exception("No se pudo escribir en el archivo");
-		}
-		return area;
-	}
-	
-  
 }
