@@ -101,6 +101,11 @@ public class Usuario {
 	{
 		
 	}
+	public void graficarAreas1() 
+	{
+		volcanes=new Archivos();
+		habitantes=new Grafica(volcanes.Area(),volcanes.Habitantes());
+	}
 	//Terminar en otra ocasion
 	public void agregarAlerta() 
 	{
