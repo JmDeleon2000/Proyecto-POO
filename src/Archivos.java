@@ -54,7 +54,7 @@ public class Archivos {
 			{
 				String linea = lector.nextLine();
 				if (linea.split("-")[0] == nombre) 
-					throw new Exception("El volc·n ya est· registrado.");
+					throw new Exception("El volc√°n ya est√° registrado.");
 				datos.add(linea);
 				
 			}	
@@ -108,7 +108,7 @@ public class Archivos {
 			}
 			if(!encontrado) 
 			{
-				throw new Exception("El volc·n que busca no existe.");
+				throw new Exception("El volc√°n que busca no existe.");
 			}
 			
 			i=0;
@@ -159,7 +159,7 @@ public class Archivos {
 			
 			if(!encontrado) 
 			{
-				throw new Exception("El volc·n que busca no existe.");
+				throw new Exception("El volc√°n que busca no existe.");
 			}
 		} catch (IOException e) {
 			throw new Exception("No se pudo escribir en el archivo");
@@ -177,7 +177,7 @@ public class Archivos {
 			{
 				String linea = lector.nextLine();
 				if (linea.split("-")[0] == volcan.getNombre()) 
-					throw new Exception("El volc·n ya tiene una alerta registrada.");
+					throw new Exception("El volc√°n ya tiene una alerta registrada.");
 				datos.add(linea);
 				
 			}	
@@ -197,4 +197,69 @@ public class Archivos {
 			throw new Exception("No se pudo escribir en el archivo.");
 		}
 	}
+	
+	public static ArrayList<Integer> Habitantes() throws Exception 
+	{
+		ArratList<Integer> habitantes= new ArrayList<Integer>();
+		try {
+			File archivo = new File("volcanes.dat");
+			Scanner lector = new Scanner(archivo);
+			ArrayList<String> datos = new ArrayList<String>();
+     		
+			while(lector.hasNextLine()) 
+			{
+				datos.add(lector.nextLine());
+			}
+			
+			
+			
+			boolean encontrado = false;
+			int i =0;
+			while (i<datos.size()) 
+			{
+				String linea = datos.get(i);
+				habitantes.add(Integer.ParseInt(linea.split("-")[2]));
+				
+				i++;
+			}
+			
+			
+		} catch (IOException e) {
+			throw new Exception("No se pudo escribir en el archivo");
+		}
+		return habitantes;
+	}
+	public static ArrayList<String> Area() throws Exception 
+	{
+		ArratList<String> area= new ArrayList<String>();
+		try {
+			File archivo = new File("volcanes.dat");
+			Scanner lector = new Scanner(archivo);
+			ArrayList<String> datos = new ArrayList<String>();
+     		
+			while(lector.hasNextLine()) 
+			{
+				datos.add(lector.nextLine());
+			}
+			
+			
+			
+			boolean encontrado = false;
+			int i =0;
+			while (i<datos.size()) 
+			{
+				String linea = datos.get(i);
+				area.add(linea.split("-")[1]) ;
+				
+				i++;
+			}
+			
+			
+		} catch (IOException e) {
+			throw new Exception("No se pudo escribir en el archivo");
+		}
+		return area;
+	}
+	
+  
 }
