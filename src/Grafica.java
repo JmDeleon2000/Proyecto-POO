@@ -29,6 +29,7 @@ public class Grafica extends JFrame {
     setContentPane(panel);
   }
 
+  
   /**
  * @param a1
  * @return el conjunto de datos dictado por los datos de la gradica
