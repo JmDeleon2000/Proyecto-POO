@@ -13,7 +13,7 @@ public class Archivos extends JFrame {
     public Archivos(ArrayList<String> areas, ArrayList<Integer> habitantes){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         DefaultCategoryDataset datasetArchivo = new DefaultCategoryDataset();
-        Integer i = 0;
+        int i = 0;
         for (i = 0; i<=areas.length-1;i++){
             dataset.addValue(habitantes.get(i), "Habitantes", areas.get(i));
         }
