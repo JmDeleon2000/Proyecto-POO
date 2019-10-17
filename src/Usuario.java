@@ -89,7 +89,12 @@ public class Usuario {
 	{
 		
 	}
-	
+	//Terminar en otra ocasion
+	public void graficarAreas1() 
+	{
+		volcanes=new Archivos();
+		habitantes=new Grafica(volcanes.Area(),volcanes.Habitantes());
+	}
 	public void consultar() {
 		if (textField.getText().trim().toLowerCase() !=""){
 			
