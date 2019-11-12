@@ -16,8 +16,8 @@ public class Usuario {
 
 	Archivos volcanes;
 	Archivos alertas;
-	Grafica habitantes;
-	Grafica areas;
+	//Grafica habitantes;
+	//Grafica areas;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JSpinner spinner;
@@ -108,7 +108,7 @@ public class Usuario {
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Ingrese el nombre de un volc·n en el sistema", "Error", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ingrese el nombre de un volc√°n en el sistema", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
