@@ -77,6 +77,7 @@ public class login {
 	private void abrirAdmin() 
 	{
 		Administrador admin = new Administrador();
+		frame.setVisible(false);
 	}
 	
 	private void validar()
