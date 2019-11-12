@@ -66,6 +66,7 @@ public class login {
 			Archivos arch = new Archivos();
 			try {
 				arch.nuevoAdmin(textField.getText(), String.valueOf(passwordField.getPassword()));
+				validar();
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -78,18 +79,23 @@ public class login {
 		Administrador admin = new Administrador();
 	}
 	
+	private void validar()
+	{
+		Archivos arch = new Archivos();
+		try {
+			if (arch.validarUsuario(textField.getText(), String.valueOf(passwordField.getPassword())))
+				abrirAdmin();
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
 	private class ingresar implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Archivos arch = new Archivos();
-			try {
-				if (arch.validarUsuario(textField.getText(), String.valueOf(passwordField.getPassword())))
-					abrirAdmin();
-			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
-			}
+			validar();
 		}
 		
 		

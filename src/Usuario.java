@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
@@ -35,74 +36,86 @@ public class Usuario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 258, 259);
+		frame.setBounds(100, 100, 340, 259);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBounds(12, 13, 208, 127);
+		panel.setBounds(12, 13, 302, 127);
 		frame.getContentPane().add(panel);
 		
-		JLabel label = new JLabel("Nombre");
-		label.setBounds(12, 13, 56, 16);
-		panel.add(label);
+		JLabel lblNombreDelVolcn = new JLabel("Nombre del volc\u00E1n");
+		lblNombreDelVolcn.setBounds(12, 13, 106, 16);
+		panel.add(lblNombreDelVolcn);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(82, 10, 116, 22);
+		textField.setBounds(130, 10, 160, 22);
 		panel.add(textField);
 		
 		JLabel label_1 = new JLabel("\u00C1rea");
-		label_1.setBounds(12, 48, 65, 16);
+		label_1.setBounds(12, 66, 65, 16);
 		panel.add(label_1);
 		
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(82, 45, 116, 22);
+		textField_1.setBounds(100, 66, 190, 22);
 		panel.add(textField_1);
 		
 		JLabel label_2 = new JLabel("Habitantes");
-		label_2.setBounds(12, 77, 77, 16);
+		label_2.setBounds(12, 95, 77, 16);
 		panel.add(label_2);
 		
 		spinner = new JSpinner();
-		spinner.setBounds(82, 74, 116, 22);
+		spinner.setEnabled(false);
+		spinner.setBounds(100, 95, 190, 22);
 		panel.add(spinner);
 		
-		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(12, 145, 97, 25);
+		JButton btnConsultar = new JButton("Completar");
+		btnConsultar.setBounds(12, 35, 278, 25);
+		panel.add(btnConsultar);
 		btnConsultar.addActionListener(new ManejadorConsulta());
-		frame.getContentPane().add(btnConsultar);
 		
 		JButton btnGraficar = new JButton("Graficar");
-		btnGraficar.setBounds(123, 145, 97, 25);
+		btnGraficar.setBounds(12, 145, 302, 25);
 		frame.getContentPane().add(btnGraficar);
 		
 		JButton btnAgregarAlerta = new JButton("Agregar alerta");
-		btnAgregarAlerta.setBounds(12, 179, 208, 25);
+		btnAgregarAlerta.setBounds(12, 179, 302, 25);
+		btnAgregarAlerta.addActionListener(new ManejadorAlerta());
 		frame.getContentPane().add(btnAgregarAlerta);
 	}
 
 	
+	public void graficarAreas(double[] puntos) 
+	{
+		
+	}
 	
-	public void consultar() {
-		if (textField.getText().trim().toLowerCase() !=""){
-			
-		Volcan consulta = Archivos.leer(textField.getText().trim().toLowerCase());
-		textField_1.setText(consulta.getArea());
-		spinner.setValue(consulta.getHabitantes());
-		}else{
-			JOptionPane.showMessageDialog(null, "Ingrese el nombre de un volcan en el sistema","Error", JOptionPane.INFORMATION_MESSAGE);
+	public void consultar() 
+	{
+		if (textField.getText().trim().toLowerCase() != "") {
+			Volcan consulta;
+			try {
+				consulta = Archivos.leer(textField.getText().trim().toLowerCase());
+				textField_1.setText(consulta.getArea());
+				spinner.setValue(consulta.getHabitantes());
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Ingrese el nombre de un volcán en el sistema", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	// Terminar en otra ocasion
+	
 	public void graficarHabitantes(double[] puntos) 
 	{
 		
 	}
-
-	//Terminar en otra ocasion
+	
 	public void agregarAlerta() 
 	{
 		consultar();
@@ -116,23 +129,21 @@ public class Usuario {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	private class ManejadorAlerta implements ActionListener{
-		public void actionPerformed(ActionEvent e){
-			agregarAlerta();
-		}
-	}
-	public void graficarAreas1() 
+	
+	
+	private class ManejadorAlerta implements ActionListener
 	{
-		volcanes=new Archivos();
-		try {
-			habitantes=new Grafica(volcanes.Area(),volcanes.Habitantes());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			agregarAlerta();	
 		}
+		
 	}
 	private class ManejadorConsulta implements ActionListener
 	{
+
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			consultar();	
 		}

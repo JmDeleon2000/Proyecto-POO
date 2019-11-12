@@ -45,31 +45,35 @@ public class Administrador {
 		panel.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(12, 13, 56, 16);
+		lblNombre.setBounds(12, 31, 56, 16);
 		panel.add(lblNombre);
 		
 		textField = new JTextField();
-		textField.setBounds(82, 10, 116, 22);
+		textField.setBounds(82, 28, 116, 22);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblArea = new JLabel("\u00C1rea");
-		lblArea.setBounds(12, 48, 65, 16);
+		lblArea.setBounds(12, 66, 65, 16);
 		panel.add(lblArea);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(82, 45, 116, 22);
+		textField_1.setBounds(82, 63, 116, 22);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblHabitantes = new JLabel("Habitantes");
-		lblHabitantes.setBounds(12, 77, 77, 16);
+		lblHabitantes.setBounds(12, 95, 77, 16);
 		panel.add(lblHabitantes);
 		
 		habitantes = new JSpinner();
 		habitantes.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(500)));
-		habitantes.setBounds(82, 74, 116, 22);
+		habitantes.setBounds(82, 92, 116, 22);
 		panel.add(habitantes);
+		
+		JLabel lblDatosDelVolcn = new JLabel("Datos del volc\u00E1n");
+		lblDatosDelVolcn.setBounds(10, 4, 116, 16);
+		panel.add(lblDatosDelVolcn);
 		
 		JButton btnNuevoVolcn = new JButton("Nuevo volc\u00E1n");
 		btnNuevoVolcn.setBounds(12, 147, 208, 25);

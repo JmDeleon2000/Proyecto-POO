@@ -7,6 +7,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import java.awt.Dimension;
 import javax.swing.*;
 import java.io.File;
+import java.util.ArrayList;
  
 public class Grafica extends JFrame {
  
@@ -14,7 +15,7 @@ public class Grafica extends JFrame {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         DefaultCategoryDataset datasetArchivo = new DefaultCategoryDataset();
         int i = 0;
-        for (i = 0; i<=areas.size()-1;i++){
+        for (i = 0; i<=areas.length-1;i++){
             dataset.addValue(habitantes.get(i), "Habitantes", areas.get(i));
         }
         JFreeChart chart = ChartFactory.createBarChart("Area vs Habitantes",
