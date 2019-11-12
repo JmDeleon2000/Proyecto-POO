@@ -36,7 +36,7 @@ public class Usuario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 340, 259);
+		frame.setBounds(100, 100, 340, 224);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -79,11 +79,12 @@ public class Usuario {
 		btnConsultar.addActionListener(new ManejadorConsulta());
 		
 		JButton btnGraficar = new JButton("Graficar");
-		btnGraficar.setBounds(12, 145, 302, 25);
+		btnGraficar.setEnabled(false);
+		btnGraficar.setBounds(12, 145, 7, 25);
 		frame.getContentPane().add(btnGraficar);
 		
 		JButton btnAgregarAlerta = new JButton("Agregar alerta");
-		btnAgregarAlerta.setBounds(12, 179, 302, 25);
+		btnAgregarAlerta.setBounds(12, 145, 302, 25);
 		btnAgregarAlerta.addActionListener(new ManejadorAlerta());
 		frame.getContentPane().add(btnAgregarAlerta);
 	}
